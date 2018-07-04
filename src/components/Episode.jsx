@@ -14,17 +14,19 @@ const Episode = (props) => {
 
     return (
         <React.Fragment>
-            <div>
-                <label>Episode #:
+            <div className="cell medium-3">
+                <div>
+                    <label>Episode No.
                     <input id="episodeId" placeholder="#" defaultValue={props.number} type="number" onChange={change} />
+                    </label>
+                </div>
+                {' '}
+                <label>Name
+                    <input type="text" id="episodeName" placeholder="(Optional: Episode name)" defaultValue={props.title} onChange={change} />
                 </label>
                 {' '}
-                <label>Name:
-                    <input id="episodeName" placeholder="(Optional: Episode name)" defaultValue={props.title} onChange={change} />
-                </label>
-                {' '}
-                <label>Link:
-                    <textarea id="episodeUri" placeholder="Stream Link" defaultValue={props.uri} onChange={change} style={{height: "10em"}} />
+                <label>Link
+                    <textarea id="episodeUri" placeholder="Stream Link" defaultValue={props.uri} onChange={change} style={{ height: "10em" }} />
                 </label>
             </div>
         </React.Fragment>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Episode from './components/Episode'
 import Selector from './components/Selector'
-import Command from './components/Command'
+import CommandYtld from './components/CommandYtdl'
 import './App.css';
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
     threads: 1,
     extras: '',
     episodeData: [],
+    subs: 0,
     browser: false
   }
 
@@ -59,7 +60,7 @@ class App extends Component {
 
     const seasons = Array(20).fill(1).map((e, i) => i + 1)
 
-    const commands = Command.getFormatted(this.state)
+    const commands = CommandYtld.getFormatted(this.state)
 
     const episodeInputs = Array(+episodes).fill(1).map((e, i) => {
       const d = episodeData[i] || {}
@@ -106,6 +107,12 @@ class App extends Component {
             </label>
           </div>
           <div className="cell small-3">
+          </div>
+          <div className="cell small-3">
+            <input id="subs" type="checkbox" onChange={this.inputToState('subs')} defaultChecked={browser} />
+            <label htmlFor="subs">Subtitles</label>
+          </div>
+          <div className="cell small-3">
             <input id="browser" type="checkbox" onChange={this.inputToState('browser')} defaultChecked={browser} />
             <label htmlFor="browser">Browser Header</label>
           </div>
@@ -118,7 +125,7 @@ class App extends Component {
         {commands.length > 0 ? <h3>Command</h3> : ''}
         <div className="grid-x grid-margin-x">
           <div className="cell small-12">
-            <textarea id="out" style={{ fontFamily: "'Lucida Mono', 'Courier New', Courier, monospace", height: '500px' }} defaultValue={commands} />
+            <textarea id="out" style={{ fontFamily: "'Lucida Mono', 'Courier New', Courier, monospace", height: '500px' }} value={commands} />
           </div>
         </div>
       </div>

@@ -1,19 +1,20 @@
-import Command from './Command'
+import Formatter from '../Formatter'
 
-class CommandYtdl {
+class Ytdl {
     static make(state) {
         const { title, season, quality, episodes, episodeData, extras, subs, threads } = state
 
         const commands = episodeData.slice(0, episodes > 0 ? episodes : 0).filter(ep => ep).map(ep => {
             const { number, uri = '' } = ep
 
-            let id = `S${Command.pad(season)}E${Command.pad(number)}`
+            let id = `S${Formatter.pad(season)}E${Formatter.pad(number)}`
 
             let subcmd = subs ? '--write-sub --sub-format ttml --convert-subtitles srt --embed-subs --merge-output-format mkv' : ''
 
             // --external-downloader aria2c --external-downloader-args "-c -j ${threads} -x ${threads} -s ${threads} -k 10M"
+            // --external-downloader aria2c --external-downloader-args "-j 16 -s 16 -x 16 -k 5M"
 
-            const cmd = `# ${id}\nyoutube-dl -f "bestvideo[height<=${quality.replace('p', '')}]+bestaudio/best[height<=${quality.replace('p', '')}]" ${subcmd} --cookies cookies.txt ${uri} -o "${Command.escape(title)}.${id}${Command.showTitle(ep.title)}.${quality}.${extras}.%(ext)s"`
+            const cmd = `# ${id}\nyoutube-dl -f 'bestvideo[height<=${quality.replace('p', '')}]+bestaudio/best[height<=${quality.replace('p', '')}]' ${subcmd} -o '${Formatter.escape(title)}.${id}${Formatter.showTitle(ep.title)}.${quality}.${extras}.%(ext)s' --cookies cookies.txt ${uri}`
 
             return cmd
         })
@@ -22,8 +23,8 @@ class CommandYtdl {
     }
 
     static getFormatted(state) {
-        return CommandYtdl.make(state).join('\n\n')
+        return Ytdl.make(state).join('\n\n')
     }
 }
 
-export default CommandYtdl
+export default Ytdl

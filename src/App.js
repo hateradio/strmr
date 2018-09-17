@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Episode from './components/Episode'
 import Selector from './components/Selector'
-import CommandYtld from './components/CommandYtdl'
+import Livestreamer from './components/Livestreamer'
+import Ytdl from './components/Ytdl'
 import './App.css';
 
 class App extends Component {
@@ -17,6 +18,8 @@ class App extends Component {
     subs: 0,
     browser: false
   }
+
+  static downloader = {livestreamer: 'Command', 'youtube-dl': 'CommandYtdl'}
 
   static protocols = ['akamaihd', 'hds', 'hls', 'hlsvariant', 'httpstream', 'rtmp', 'rtmpe', 'rtmps', 'rtmpt', 'rtmpte']
 
@@ -60,7 +63,7 @@ class App extends Component {
 
     const seasons = Array(20).fill(1).map((e, i) => i + 1)
 
-    const commands = CommandYtld.getFormatted(this.state)
+    const commands = Ytdl.getFormatted(this.state)
 
     const episodeInputs = Array(+episodes).fill(1).map((e, i) => {
       const d = episodeData[i] || {}

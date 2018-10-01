@@ -14,7 +14,7 @@ class Ytdl {
             // --external-downloader aria2c --external-downloader-args "-c -j ${threads} -x ${threads} -s ${threads} -k 10M"
             // --external-downloader aria2c --external-downloader-args "-j 16 -s 16 -x 16 -k 5M"
 
-            const cmd = `# ${id}\nyoutube-dl -f 'bestvideo[height<=${quality.replace('p', '')}]+bestaudio/best[height<=${quality.replace('p', '')}]' ${subcmd} -o '${Formatter.escape(title)}.${id}${Formatter.showTitle(ep.title)}.${quality}.${extras}.%(ext)s' --cookies cookies.txt ${uri}`
+            const cmd = `# ${id}\nyoutube-dl -f "bestvideo[height<=${quality.replace('p', '')}]+bestaudio/best[height<=${quality.replace('p', '')}]" ${subcmd} ${uri} -o "${Formatter.escape(title)}.${id}${Formatter.showTitle(ep.title)}.${quality}.${extras}.%(ext)s" --cookies cookies.txt`
 
             return cmd
         })

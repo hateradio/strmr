@@ -20,7 +20,7 @@ class Livestreamer {
             const { number, uri = '' } = ep
 
             let id = `S${Formatter.pad(season)}E${Formatter.pad(number)}`
-            return `# ${id}\nlivestreamer${Livestreamer.browser(browser)} '${protocol}://${Livestreamer.link(uri, protocol)}' 'best' --hls-segment-threads ${threads} -f -o ${Formatter.escape(title)}.${id}${Formatter.showTitle(ep.title)}.${quality}.${extras}` //.replace(/(?:\w.m3u8)/g, 'i.m3u8')
+            return `# ${id}\nlivestreamer${Livestreamer.browser(browser)} "${protocol}://${Livestreamer.link(uri, protocol)}" "best" --hls-segment-threads ${threads} -f -o ${Formatter.escape(title)}.${id}${Formatter.showTitle(ep.title)}.${quality}.${extras}` //.replace(/(?:\w.m3u8)/g, 'i.m3u8')
         })
 
         return commands

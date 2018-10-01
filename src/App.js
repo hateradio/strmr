@@ -16,10 +16,11 @@ class App extends Component {
     extras: '',
     episodeData: [],
     subs: 0,
-    browser: false
+    browser: false,
+    downloader: 'youtube-dl'
   }
 
-  static downloader = {livestreamer: 'Command', 'youtube-dl': 'CommandYtdl'}
+  static downloaders = {livestreamer: Livestreamer, 'youtube-dl': Ytdl}
 
   static protocols = ['akamaihd', 'hds', 'hls', 'hlsvariant', 'httpstream', 'rtmp', 'rtmpe', 'rtmps', 'rtmpt', 'rtmpte']
 
@@ -59,11 +60,11 @@ class App extends Component {
   }
 
   render() {
-    const { title, season, quality, episodes, protocol, threads, extras, episodeData, browser } = this.state
+    const { title, season, quality, episodes, protocol, threads, extras, episodeData, browser, downloader } = this.state
 
     const seasons = Array(20).fill(1).map((e, i) => i + 1)
 
-    const commands = Ytdl.getFormatted(this.state)
+    const commands = App.downloaders[downloader].getFormatted(this.state)
 
     const episodeInputs = Array(+episodes).fill(1).map((e, i) => {
       const d = episodeData[i] || {}
@@ -73,12 +74,15 @@ class App extends Component {
     return (<React.Fragment>
       <div className="callout large primary">
         <div className="row column text-center">
-          <h1>Livestreamer</h1>
+          <h1>Streamer</h1>
           <h2>For your viewing pleasure</h2>
         </div>
       </div>
       <div className="grid-container">
         <div className="grid-x grid-margin-x">
+        <div className="cell small-12">
+            <Selector label="Downloader" onChange={this.inputToState('downloader')} list={Object.keys(App.downloaders)} defaultValue={downloader} />
+          </div>
           <div className="cell small-7">
             <label>Show Name
               <input id="title" type="text" placeholder="Show" onChange={this.inputToState('title')} defaultValue={title} />

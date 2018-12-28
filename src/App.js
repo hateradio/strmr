@@ -17,7 +17,8 @@ class App extends Component {
     episodeData: [],
     subs: 0,
     browser: false,
-    downloader: 'youtube-dl'
+    downloader: 'youtube-dl',
+    log: false
   }
 
   static downloaders = {livestreamer: Livestreamer, 'youtube-dl': Ytdl}
@@ -60,7 +61,7 @@ class App extends Component {
   }
 
   render() {
-    const { title, season, quality, episodes, protocol, threads, extras, episodeData, browser, downloader } = this.state
+    const { title, season, quality, episodes, protocol, threads, extras, episodeData, browser, downloader, log } = this.state
 
     const seasons = Array(20).fill(1).map((e, i) => i + 1)
 
@@ -114,14 +115,16 @@ class App extends Component {
             </label>
           </div>
           <div className="cell small-3">
-          </div>
-          <div className="cell small-3">
             <input id="subs" type="checkbox" onChange={this.inputToState('subs')} defaultChecked={browser} />
             <label htmlFor="subs">Subtitles</label>
           </div>
           <div className="cell small-3">
             <input id="browser" type="checkbox" onChange={this.inputToState('browser')} defaultChecked={browser} />
             <label htmlFor="browser">Browser Header</label>
+          </div>
+          <div className="cell small-3">
+            <input id="log" type="checkbox" onChange={this.inputToState('log')} defaultChecked={log} />
+            <label htmlFor="log">Save to log</label>
           </div>
         </div>
 

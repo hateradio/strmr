@@ -7,4 +7,4 @@
   height: 80px;
 }
 
-@import '../node_modules/foundation-sites/dist/css/foundation.css'
+@import './foundation.css'

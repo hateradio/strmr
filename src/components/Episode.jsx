@@ -14,7 +14,7 @@ const Episode = (props) => {
 
     return (
         <React.Fragment>
-            <div className="cell medium-3">
+            <div className="columns medium-3">
                 <div>
                     <label>Episode No.
                     <input id="episodeId" placeholder="#" defaultValue={props.number} type="number" onChange={change} />

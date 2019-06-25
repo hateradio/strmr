@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Episode = (props) => {
+const Episode = props => {
 
     const change = e => {
         const id = e.target.id
@@ -10,6 +10,10 @@ const Episode = (props) => {
             title: id === 'episodeName' ? e.target.value : props.title,
             uri: id === 'episodeUri' ? e.target.value : props.uri
         })
+    }
+
+    const remove = () => {
+        props.delete(+props.id)
     }
 
     return (
@@ -28,6 +32,9 @@ const Episode = (props) => {
                 <label>Link
                     <textarea id="episodeUri" placeholder="Stream Link" defaultValue={props.uri} onChange={change} style={{ height: "10em" }} />
                 </label>
+                <div>
+                    <button type="button" className="button tiny" onClick={remove}>Delete</button>
+                </div>
             </div>
         </React.Fragment>
     )

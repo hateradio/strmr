@@ -21,7 +21,7 @@ const Episode = props => {
             <div className="columns medium-3">
                 <div>
                     <label>Episode No.
-                    <input id="episodeId" placeholder="#" defaultValue={props.number} type="number" onChange={change} />
+                    <input id="episodeId" placeholder="#" value={props.number} type="number" onChange={change} />
                     </label>
                 </div>
                 {' '}
@@ -30,7 +30,7 @@ const Episode = props => {
                 </label>
                 {' '}
                 <label>Link
-                    <textarea id="episodeUri" placeholder="Stream Link" defaultValue={props.uri} onChange={change} style={{ height: "10em" }} />
+                    <textarea id="episodeUri" placeholder="Stream Link" value={props.uri} onChange={change} style={{ height: "10em" }} />
                 </label>
                 <div>
                     <button type="button" className="button tiny" onClick={remove}>Delete</button>

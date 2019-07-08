@@ -82,7 +82,7 @@ class App extends Component {
 
     const episodeInputs = Array(+episodes).fill(1).map((e, i) => {
       const d = episodeData[i] || {}
-      return <Episode key={i} id={i} title={d.title} number={d.number || (i + 1)} uri={d.uri} update={this.episodeToState} delete={this.episodeDelete} />
+      return <Episode key={i} id={i} title={d.title} number={d.number || (i + 1)} uri={d.uri} update={this.episodeToState} delete={this.episodeDelete.bind(this)} />
     })
 
     console.log('imps', episodeInputs)

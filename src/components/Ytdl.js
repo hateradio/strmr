@@ -4,7 +4,9 @@ class Ytdl {
     static make(state) {
         const { title, season, quality, episodes, episodeData, extras, subs, log } = state
 
-        const download = episodeData.slice(0, episodes > 0 ? episodes : 0).filter(ep => ep).map(ep => {
+        const eps = episodeData.slice(0, episodes > 0 ? episodes : 0).filter(ep => ep);
+
+        const download = eps.map(ep => {
             const { number, uri = '' } = ep
 
             let id = `S${Formatter.pad(season)}E${Formatter.pad(number)}`
@@ -18,7 +20,7 @@ class Ytdl {
             return {title: `# ${id}`, cmd}
         })
 
-        const mkv = episodeData.slice(0, episodes > 0 ? episodes : 0).filter(ep => ep).map(ep => {
+        const mkv = eps.map(ep => {
             const { number } = ep
 
             let id = `S${Formatter.pad(season)}E${Formatter.pad(number)}`
@@ -37,13 +39,24 @@ class Ytdl {
         }
     }
 
-    static nix(title) {
-        return `mkvmerge --ui-language en --output '${title}.mkv' --language 0:eng --default-track 0:yes --language 1:eng --default-track 1:yes --sub-charset 2:UTF-8 --language 2:eng '(' '${title}.mkv' ')' --track-order 0:0,0:1,0:2`
+    static nix(data) {
+        return {
+            title: data.title,
+            cmd: `mkvmerge --ui-language en_US --output ${data.name}.mkv --language 0:eng --language 1:eng '(' ${data.name}.mp4 ')' --language 0:eng --default-track 0:no '(' ${data.name}.srt ')' --track-order 0:0,0:1,1:0`
+        }
+    }
+
+    static ccextractor(data) {
+        return {
+            title: data.title,
+            cmd: `ccextractor -utf8 -lf ${data.name}.mp4`
+        }
     }
 
     static getRaw(state) {
         const cms = Ytdl.make(state)
-        cms.mkv = cms.mkv.map(Ytdl.windows)
+        cms.subtitles = cms.mkv.map(Ytdl.ccextractor)
+        cms.mkv = cms.mkv.map(Ytdl.nix)
         return cms
     }
 

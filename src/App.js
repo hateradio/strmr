@@ -110,7 +110,15 @@ class App extends Component {
             {commands.download.map((_, i) => {
               return (<React.Fragment key={i}>
                 <h5>{_.title}</h5>
-                <textarea onClick={e => e.target.select()} defaultValue={_.cmd}></textarea>
+                <textarea onDoubleClick={e => e.target.select()} defaultValue={_.cmd}></textarea>
+                </React.Fragment>)
+            })}
+
+            <h4>Subtitles</h4>
+            {commands.subtitles.map((_, i) => {
+              return (<React.Fragment key={i}>
+                <h5>{_.title}</h5>
+                <textarea onDoubleClick={e => e.target.select()} defaultValue={_.cmd}></textarea>
                 </React.Fragment>)
             })}
 
@@ -118,7 +126,7 @@ class App extends Component {
             {commands.mkv.map((_, i) => {
               return (<React.Fragment key={i}>
                 <h5>{_.title}</h5>
-                <textarea onClick={e => e.target.select()} defaultValue={_.cmd}></textarea>
+                <textarea onDoubleClick={e => e.target.select()} defaultValue={_.cmd}></textarea>
                 </React.Fragment>)
             })}
           </div>
